@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center p-4 md:p-24 relative overflow-hidden">
@@ -22,16 +24,16 @@ export default function Home() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 mt-8 w-full sm:w-auto">
-          <button className="px-8 py-4 rounded-lg bg-white text-slate-950 font-bold text-lg hover:bg-slate-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+          <Link href="/login" className="px-8 py-4 rounded-lg bg-white text-slate-950 font-bold text-lg hover:bg-slate-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.3)]">
             Join the Circle
-          </button>
-          <button className="px-8 py-4 rounded-lg border border-slate-700 hover:border-slate-500 hover:bg-slate-900/50 transition-all text-slate-200 font-medium">
+          </Link>
+          <Link href="#how-it-works" className="px-8 py-4 rounded-lg border border-slate-700 hover:border-slate-500 hover:bg-slate-900/50 transition-all text-slate-200 font-medium">
             How it works
-          </button>
+          </Link>
         </div>
 
         {/* Feature Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20 w-full text-left">
+        <div id="how-it-works" className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20 w-full text-left">
           <FeatureCard
             title="Triad Stability"
             desc="3 people reduce the pressure of 1-on-1s and eliminate 'dead air'. A perfect balance."
