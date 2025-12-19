@@ -42,6 +42,6 @@ export async function getUpcomingMatches() {
 
     // Clean up data structure
     // @ts-ignore
-    const matches = data?.map(d => d.match).filter(m => m) || [];
+    const matches = data?.map(d => Array.isArray(d.match) ? d.match[0] : d.match).filter(m => m) || [];
     return matches;
 }
