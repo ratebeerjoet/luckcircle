@@ -14,6 +14,7 @@ export interface Database {
                     id: string
                     full_name: string | null
                     avatar_url: string | null
+                    availability_note: string | null
                     linkedin_url: string | null
                     struggle: string | null
                     helping_others: string | null

@@ -7,6 +7,7 @@ create table public.profiles (
   id uuid not null references auth.users on delete cascade,
   full_name text,
   avatar_url text,
+  availability_note text, -- General preferences for meeting times
   linkedin_url text,
   struggle text,
   helping_others text,

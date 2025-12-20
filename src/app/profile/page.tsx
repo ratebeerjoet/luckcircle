@@ -20,7 +20,8 @@ export default function ProfilePage() {
         full_name: "",
         struggle: "",
         helping_others: "",
-        avatar_url: ""
+        avatar_url: "",
+        availability_note: ""
     });
 
     useEffect(() => {
@@ -43,7 +44,8 @@ export default function ProfilePage() {
                     full_name: data.full_name || "",
                     struggle: data.struggle || "",
                     helping_others: data.helping_others || "",
-                    avatar_url: data.avatar_url || ""
+                    avatar_url: data.avatar_url || "",
+                    availability_note: data.availability_note || ""
                 });
             }
             setLoading(false);
@@ -63,6 +65,7 @@ export default function ProfilePage() {
                 struggle: form.struggle,
                 helping_others: form.helping_others,
                 avatar_url: form.avatar_url,
+                availability_note: form.availability_note,
                 updated_at: new Date().toISOString()
             })
             .eq("id", profile?.id as string);
@@ -142,6 +145,18 @@ export default function ProfilePage() {
                                 className="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-blue-500 outline-none"
                                 value={form.helping_others}
                                 onChange={e => setForm({ ...form, helping_others: e.target.value })}
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-slate-400 mb-1">General Availability Preferences</label>
+                            <p className="text-xs text-slate-500 mb-2">Help admins know when to create new time slots (e.g. "Weekdays after 5pm EST").</p>
+                            <textarea
+                                rows={2}
+                                className="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                                value={form.availability_note}
+                                onChange={e => setForm({ ...form, availability_note: e.target.value })}
+                                placeholder="I'm generally free on..."
                             />
                         </div>
                     </div>

@@ -23,7 +23,12 @@ export default async function DashboardPage() {
     return (
         <div className="min-h-screen bg-slate-950 p-4 md:p-8">
             <header className="flex justify-between items-center mb-12 max-w-5xl mx-auto">
-                <h1 className="text-2xl font-bold text-white tracking-tight">The Luck Circle</h1>
+                <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 relative">
+                        <img src="/logo.png" alt="Luck Circle Logo" className="object-contain w-full h-full" />
+                    </div>
+                    <h1 className="text-2xl font-bold text-white tracking-tight hidden md:block">The Luck Circle</h1>
+                </div>
                 <div className="flex gap-4">
                     <Link href="/profile" className="block w-10 h-10 rounded-full bg-slate-800 border border-slate-700 overflow-hidden hover:ring-2 hover:ring-blue-500 transition-all">
                         {profile?.avatar_url ? (
@@ -69,7 +74,7 @@ export default async function DashboardPage() {
                                 <p className="text-2xl text-slate-200 font-medium mb-2">No upcoming circles.</p>
                                 <p className="text-slate-400 mb-4">You haven't been matched yet. Increase your luck by opening more slots!</p>
                                 <Link href="/profile/availability" className="text-blue-400 hover:text-blue-300 font-medium">
-                                    Update Availability &rarr;
+                                    Edit My Availability... &rarr;
                                 </Link>
                             </div>
                         )}
