@@ -56,6 +56,12 @@ export default async function AdminLayout({
                     >
                         The Pulse (Feedback)
                     </Link>
+                    <Link
+                        href="/admin/schedule/calendar"
+                        className="block px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 hover:text-white"
+                    >
+                        Schedule & Events
+                    </Link>
                 </nav>
 
                 <div className="pt-4 border-t border-slate-800">

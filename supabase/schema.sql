@@ -60,10 +60,47 @@ create table public.communities (
   primary key (id)
 );
 
+-- Time Slots (Menu of valid meeting times)
+create table public.time_slots (
+  id uuid not null default gen_random_uuid(),
+  community_id uuid references public.communities(id),
+  day_of_week int not null check (day_of_week between 0 and 6), -- 0=Sun
+  time_utc time not null,
+  created_at timestamptz default now(),
+  primary key (id)
+);
+
+-- User Availability (Persistent weekly preferences)
+create table public.user_availability (
+  user_id uuid references public.profiles(id) on delete cascade,
+  slot_id uuid references public.time_slots(id) on delete cascade,
+  created_at timestamptz default now(),
+  primary key (user_id, slot_id)
+);
+
+-- Event Series (Themed campaigns spanning a date range)
+create table public.event_series (
+  id uuid not null default gen_random_uuid(),
+  community_id uuid references public.communities(id),
+  title text not null,
+  slug text not null,
+  description text, -- Rich text HTML
+  poster_url text,
+  start_date timestamptz not null,
+  end_date timestamptz not null,
+  location_type text default 'online' check (location_type in ('online', 'in_person')),
+  location_address text,
+  ai_script_override jsonb,
+  is_active boolean default true,
+  created_at timestamptz default now(),
+  primary key (id)
+);
+
 -- Matches (Triads)
 create table public.matches (
   id uuid not null default gen_random_uuid(),
   community_id uuid references public.communities(id),
+  event_series_id uuid references public.event_series(id), -- Link to specific event series
   scheduled_at timestamptz not null,
   status text default 'scheduled', -- scheduled, completed, cancelled
   created_at timestamptz default now(),

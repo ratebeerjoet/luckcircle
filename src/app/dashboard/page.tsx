@@ -2,6 +2,7 @@ import { getUpcomingMatches, getUserProfile } from "@/lib/data";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import ActiveEventCard from "@/components/dashboard/active-event-card";
 
 export default async function DashboardPage() {
     const supabase = await createClient();
@@ -32,6 +33,9 @@ export default async function DashboardPage() {
             <main className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
                 {/* Main Column */}
                 <div className="md:col-span-2 space-y-6">
+                    {/* Active Event Campaign */}
+                    <ActiveEventCard />
+
                     {/* Next Meeting Card */}
                     <section className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 backdrop-blur-sm relative overflow-hidden group">
                         <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 blur-[80px] rounded-full -translate-y-1/2 translate-x-1/2" />
@@ -56,7 +60,10 @@ export default async function DashboardPage() {
                         ) : (
                             <div className="py-8 text-center md:text-left">
                                 <p className="text-2xl text-slate-200 font-medium mb-2">No upcoming circles.</p>
-                                <p className="text-slate-400">Our AI is currently scouting for your perfect match triad.</p>
+                                <p className="text-slate-400 mb-4">You haven't been matched yet. Increase your luck by opening more slots!</p>
+                                <Link href="/profile/availability" className="text-blue-400 hover:text-blue-300 font-medium">
+                                    Update Availability &rarr;
+                                </Link>
                             </div>
                         )}
                     </section>

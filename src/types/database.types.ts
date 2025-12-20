@@ -120,6 +120,7 @@ export interface Database {
                 Row: {
                     id: string
                     community_id: string | null
+                    event_series_id: string | null
                     scheduled_at: string
                     status: string
                     created_at: string
@@ -127,6 +128,7 @@ export interface Database {
                 Insert: {
                     id?: string
                     community_id?: string | null
+                    event_series_id?: string | null
                     scheduled_at: string
                     status?: string
                     created_at?: string
@@ -134,8 +136,96 @@ export interface Database {
                 Update: {
                     id?: string
                     community_id?: string | null
+                    event_series_id?: string | null
                     scheduled_at?: string
                     status?: string
+                    created_at?: string
+                }
+            }
+            time_slots: {
+                Row: {
+                    id: string
+                    community_id: string | null
+                    day_of_week: number
+                    time_utc: string
+                    created_at: string
+                }
+                Insert: {
+                    id?: string
+                    community_id?: string | null
+                    day_of_week: number
+                    time_utc: string
+                    created_at?: string
+                }
+                Update: {
+                    id?: string
+                    community_id?: string | null
+                    day_of_week?: number
+                    time_utc?: string
+                    created_at?: string
+                }
+            }
+            user_availability: {
+                Row: {
+                    user_id: string
+                    slot_id: string
+                    created_at: string
+                }
+                Insert: {
+                    user_id: string
+                    slot_id: string
+                    created_at?: string
+                }
+                Update: {
+                    user_id?: string
+                    slot_id?: string
+                    created_at?: string
+                }
+            }
+            event_series: {
+                Row: {
+                    id: string
+                    community_id: string | null
+                    title: string
+                    slug: string
+                    description: string | null
+                    poster_url: string | null
+                    start_date: string
+                    end_date: string
+                    location_type: 'online' | 'in_person'
+                    location_address: string | null
+                    ai_script_override: Json | null
+                    is_active: boolean
+                    created_at: string
+                }
+                Insert: {
+                    id?: string
+                    community_id?: string | null
+                    title: string
+                    slug: string
+                    description?: string | null
+                    poster_url?: string | null
+                    start_date: string
+                    end_date: string
+                    location_type?: 'online' | 'in_person'
+                    location_address?: string | null
+                    ai_script_override?: Json | null
+                    is_active?: boolean
+                    created_at?: string
+                }
+                Update: {
+                    id?: string
+                    community_id?: string | null
+                    title?: string
+                    slug?: string
+                    description?: string | null
+                    poster_url?: string | null
+                    start_date?: string
+                    end_date?: string
+                    location_type?: 'online' | 'in_person'
+                    location_address?: string | null
+                    ai_script_override?: Json | null
+                    is_active?: boolean
                     created_at?: string
                 }
             }
