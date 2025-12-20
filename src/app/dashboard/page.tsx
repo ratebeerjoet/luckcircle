@@ -89,7 +89,7 @@ export default async function DashboardPage() {
                                 <div className="text-xs text-slate-500 uppercase tracking-wide mb-1">Helping Others</div>
                                 <p className="text-slate-300 text-sm line-clamp-3">{profile.helping_others}</p>
                             </div>
-                            <Link href="/onboarding" className="text-blue-400 text-sm hover:text-blue-300 mt-2 block">Edit Profile &rarr;</Link>
+                            <Link href="/profile" className="text-blue-400 text-sm hover:text-blue-300 mt-2 block">Edit Profile &rarr;</Link>
                         </div>
                     </section>
 
