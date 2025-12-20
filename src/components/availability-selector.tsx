@@ -93,38 +93,41 @@ export default function AvailabilitySelector({ userId, communityId }: { userId: 
     });
 
     return (
-        <div className="w-full max-w-4xl mx-auto p-4">
-            <h2 className="text-2xl font-bold mb-6">Select your Weekly Availability</h2>
-            <p className="text-gray-500 mb-2">
+        <div className="w-full max-w-4xl mx-auto p-4 text-slate-200">
+            <h2 className="text-2xl font-bold mb-4 text-white">Select your Weekly Availability</h2>
+            <p className="text-slate-400 mb-6">
                 Check the times you are free to meet. These recur every week.
             </p>
-            <p className="text-indigo-600 text-sm font-medium mb-8 bg-indigo-50 inline-block px-3 py-1 rounded-full">
-                💡 Pro Tip: Selecting more slots significantly increases your chance of getting matched!
-            </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="bg-indigo-900/20 border border-indigo-500/30 p-3 rounded-lg mb-8 flex items-center gap-3">
+                <span className="text-xl">💡</span>
+                <p className="text-indigo-200 text-sm font-medium">Pro Tip: Selecting more slots significantly increases your chance of getting matched!</p>
+            </div>
+
+            <div className="grid gap-6">
                 {days.map((day) => {
-                    const daySlots = slotsByDay[day] || [];
-                    if (daySlots.length === 0) return null;
+                    const dailySlots = slotsByDay[day] || [];
+                    if (dailySlots.length === 0) return null;
 
-                    // Sort by time
-                    daySlots.sort((a, b) => a.sortTime - b.sortTime);
+                    dailySlots.sort((a, b) => a.sortTime - b.sortTime);
 
                     return (
-                        <div key={day} className="border rounded-xl p-4 bg-white shadow-sm">
-                            <h3 className="font-semibold text-lg mb-3 text-indigo-900">{day}</h3>
-                            <div className="flex flex-wrap gap-2">
-                                {daySlots.map(({ slot, localTimeStr }) => {
+                        <div key={day} className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+                            <h3 className="text-lg font-semibold mb-4 text-slate-300">{day}</h3>
+                            <div className="flex flex-wrap gap-3">
+                                {dailySlots.map(({ slot, localTimeStr }) => {
                                     const isSelected = selectedSlotIds.has(slot.id);
                                     return (
                                         <button
                                             key={slot.id}
                                             onClick={() => toggleSlot(slot.id)}
-                                            className={`px-3 py-2 rounded-lg text-sm transition-all duration-200 border
-                         ${isSelected
-                                                    ? "bg-indigo-600 text-white border-indigo-600 shadow-md"
-                                                    : "bg-gray-50 text-gray-700 border-gray-200 hover:border-indigo-300 hover:bg-indigo-50"
-                                                }`}
+                                            className={`
+                                                px-4 py-2 rounded-lg text-sm font-medium transition-all border
+                                                ${isSelected
+                                                    ? "bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-500/20 hover:bg-blue-500"
+                                                    : "bg-slate-950 border-slate-700 text-slate-400 hover:border-slate-500 hover:text-slate-200"
+                                                }
+                                            `}
                                         >
                                             {localTimeStr}
                                         </button>
@@ -135,12 +138,12 @@ export default function AvailabilitySelector({ userId, communityId }: { userId: 
                     );
                 })}
             </div>
-
             {slots.length === 0 && (
-                <div className="text-center text-gray-400 py-10">
-                    No meeting slots defined by the admin yet.
+                <div className="text-center p-12 bg-slate-900/50 rounded-xl border border-slate-800 border-dashed">
+                    <p className="text-slate-500">No meeting slots have been defined by the admin yet.</p>
                 </div>
             )}
         </div>
     );
 }
+
