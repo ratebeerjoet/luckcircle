@@ -2,6 +2,7 @@
 create extension if not exists vector;
 
 -- Profiles table (extends auth.users)
+-- Profiles table (extends auth.users)
 create table public.profiles (
   id uuid not null references auth.users on delete cascade,
   linkedin_url text,
@@ -9,7 +10,40 @@ create table public.profiles (
   helping_others text,
   expertise text[],
   hobbies text[],
-  embedding vector(1536), -- assuming openai text-embedding-3-small
+  embedding vector(768), -- Gemini text-embedding-004
+  role text default 'member' check (role in ('admin', 'member')),
+  created_at timestamptz default now(),
+  updated_at timestamptz,
+  primary key (id)
+);
+
+-- Invitations table (for bulk inviting users)
+create table public.invitations (
+  id uuid not null default gen_random_uuid(),
+  email text unique not null,
+  name text,
+  linkedin_url text,
+  community_id uuid references public.communities(id),
+  status text default 'pending' check (status in ('pending', 'registered')),
+  created_at timestamptz default now(),
+  primary key (id)
+);
+
+-- App Config (Singleton for global settings like AI Prompts)
+create table public.app_config (
+  id int primary key default 1 check (id = 1), -- Enforce singleton
+  ai_script jsonb, -- The facilitator instructions
+  updated_at timestamptz default now()
+);
+
+-- Feedback (Post-meeting ratings)
+create table public.feedback (
+  id uuid not null default gen_random_uuid(),
+  match_id uuid references public.matches(id),
+  user_id uuid references public.profiles(id),
+  rating int check (rating >= 1 and rating <= 5),
+  did_connect boolean, -- "Did you make a meaningful connection?"
+  comments text,
   created_at timestamptz default now(),
   primary key (id)
 );
@@ -56,7 +90,7 @@ create table public.meetings (
 
 -- Matching Function
 create or replace function match_profiles (
-  query_embedding vector(1536),
+  query_embedding vector(768),
   match_threshold float,
   match_count int
 )
