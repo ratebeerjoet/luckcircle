@@ -99,7 +99,37 @@ export default function SlotManagerPage() {
         const communityId = comms?.[0]?.id;
 
         if (!communityId) {
-            setStatus("Error: No community found.");
+            // Auto-create default community if missing
+            const { data: newComm, error: createError } = await supabase
+                .from("communities")
+                .insert({
+                    name: "Luck Circle",
+                    slug: "luck-circle",
+                    welcome_message: "Welcome to the circle!"
+                })
+                .select()
+                .single();
+
+            if (createError || !newComm) {
+                setStatus("Error: Could not create default community. " + createError?.message);
+                return;
+            }
+            // Use the new community ID
+            // We need to re-assign or use a let variable, but since communityId was const from destructuring above...
+            // Let's refactor the logic slightly below to use the new ID directly.
+
+            const { error } = await supabase.from("time_slots").insert({
+                community_id: newComm.id,
+                day_of_week: finalUtcDay,
+                time_utc: finalUtcTime
+            });
+
+            if (error) {
+                setStatus("Error saving: " + error.message);
+            } else {
+                setStatus("Slot created! (Default community initialized)");
+                fetchSlots();
+            }
             return;
         }
 
