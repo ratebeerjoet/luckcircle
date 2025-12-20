@@ -16,7 +16,9 @@ export default async function AdminPage() {
     const { count: registeredCount } = await supabase
         .from("invitations")
         .select("*", { count: 'exact', head: true })
-        .eq("status", "registered");
+    const { count: totalMembers } = await supabase
+        .from("profiles")
+        .select("*", { count: 'exact', head: true });
 
     return (
         <div className="space-y-8">
@@ -28,12 +30,17 @@ export default async function AdminPage() {
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <StatCard
+                    label="Total Members"
+                    value={totalMembers || 0}
+                    color="text-blue-400"
+                />
+                <StatCard
                     label="Pending Invites"
                     value={pendingCount || 0}
                     color="text-yellow-400"
                 />
                 <StatCard
-                    label="Registered Users"
+                    label="Accepted Invites"
                     value={registeredCount || 0}
                     color="text-green-400"
                 />
