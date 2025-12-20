@@ -123,18 +123,18 @@ export default function SlotManagerPage() {
     };
 
     return (
-        <div className="p-8 max-w-4xl">
+        <div className="p-8 max-w-4xl text-slate-200">
             <h1 className="text-3xl font-bold mb-6">Manage Meeting Slots</h1>
 
-            <div className="bg-white p-6 rounded-xl shadow-sm border mb-8">
-                <h2 className="text-xl font-semibold mb-4">Add Recurring Slot</h2>
+            <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl shadow-sm mb-8">
+                <h2 className="text-xl font-semibold mb-4 text-slate-200">Add Recurring Slot</h2>
                 <form onSubmit={addSlot} className="flex gap-4 items-end">
                     <div>
-                        <label className="block text-sm font-medium mb-1">Day</label>
+                        <label className="block text-sm font-medium mb-1 text-slate-400">Day</label>
                         <select
                             value={newDay}
                             onChange={(e) => setNewDay(e.target.value)}
-                            className="border rounded p-2 w-40"
+                            className="bg-slate-950 border border-slate-700 rounded p-2 w-40 text-slate-200 focus:ring-2 focus:ring-blue-500 outline-none"
                         >
                             <option value="0">Sunday</option>
                             <option value="1">Monday</option>
@@ -147,42 +147,42 @@ export default function SlotManagerPage() {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium mb-1">Local Time</label>
+                        <label className="block text-sm font-medium mb-1 text-slate-400">Local Time</label>
                         <input
                             type="time"
                             value={newTime}
                             onChange={(e) => setNewTime(e.target.value)}
-                            className="border rounded p-2"
+                            className="bg-slate-950 border border-slate-700 rounded p-2 text-slate-200 focus:ring-2 focus:ring-blue-500 outline-none"
                         />
                     </div>
 
-                    <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                    <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500 transition-colors font-medium">
                         Add Slot
                     </button>
                 </form>
-                {status && <p className="mt-2 text-sm text-gray-600">{status}</p>}
+                {status && <p className="mt-2 text-sm text-blue-400">{status}</p>}
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm border overflow-hidden">
+            <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-sm overflow-hidden">
                 <table className="w-full text-left">
-                    <thead className="bg-gray-50 border-b">
+                    <thead className="bg-slate-950 border-b border-slate-800">
                         <tr>
-                            <th className="p-4">Day (UTC)</th>
-                            <th className="p-4">Time (UTC)</th>
-                            <th className="p-4">Actions</th>
+                            <th className="p-4 text-slate-400 font-medium">Day (UTC)</th>
+                            <th className="p-4 text-slate-400 font-medium">Time (UTC)</th>
+                            <th className="p-4 text-slate-400 font-medium">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {loading ? <tr><td className="p-4">Loading...</td></tr> : slots.map((slot) => (
-                            <tr key={slot.id} className="border-b last:border-0 hover:bg-gray-50">
-                                <td className="p-4">
+                    <tbody className="divide-y divide-slate-800">
+                        {loading ? <tr><td className="p-4 text-slate-500">Loading...</td></tr> : slots.map((slot) => (
+                            <tr key={slot.id} className="hover:bg-slate-800/50 transition-colors">
+                                <td className="p-4 text-slate-300">
                                     {["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][slot.day_of_week]}
                                 </td>
-                                <td className="p-4 font-mono">{slot.time_utc}</td>
+                                <td className="p-4 font-mono text-slate-400">{slot.time_utc}</td>
                                 <td className="p-4">
                                     <button
                                         onClick={() => deleteSlot(slot.id)}
-                                        className="text-red-600 hover:text-red-800 text-sm"
+                                        className="text-red-400 hover:text-red-300 text-sm font-medium"
                                     >
                                         Delete
                                     </button>
@@ -190,7 +190,7 @@ export default function SlotManagerPage() {
                             </tr>
                         ))}
                         {!loading && slots.length === 0 && (
-                            <tr><td colSpan={3} className="p-4 text-center text-gray-500">No slots defined.</td></tr>
+                            <tr><td colSpan={3} className="p-4 text-center text-slate-500">No slots defined.</td></tr>
                         )}
                     </tbody>
                 </table>
