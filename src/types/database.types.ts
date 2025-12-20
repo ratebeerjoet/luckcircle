@@ -12,13 +12,17 @@ export interface Database {
             profiles: {
                 Row: {
                     id: string
+                    full_name: string | null
+                    avatar_url: string | null
                     linkedin_url: string | null
                     struggle: string | null
                     helping_others: string | null
                     expertise: string[] | null
                     hobbies: string[] | null
                     role: 'admin' | 'member'
+                    timezone: string | null
                     created_at: string
+                    updated_at: string | null
                 }
                 Insert: {
                     id: string
@@ -28,7 +32,9 @@ export interface Database {
                     expertise?: string[] | null
                     hobbies?: string[] | null
                     role?: 'admin' | 'member'
+                    timezone?: string | null
                     created_at?: string
+                    updated_at?: string | null
                 }
                 Update: {
                     id?: string
@@ -38,7 +44,9 @@ export interface Database {
                     expertise?: string[] | null
                     hobbies?: string[] | null
                     role?: 'admin' | 'member'
+                    timezone?: string | null
                     created_at?: string
+                    updated_at?: string | null
                 }
             }
             invitations: {

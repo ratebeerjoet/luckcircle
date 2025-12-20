@@ -5,6 +5,8 @@ create extension if not exists vector;
 -- Profiles table (extends auth.users)
 create table public.profiles (
   id uuid not null references auth.users on delete cascade,
+  full_name text,
+  avatar_url text,
   linkedin_url text,
   struggle text,
   helping_others text,
@@ -12,6 +14,7 @@ create table public.profiles (
   hobbies text[],
   embedding vector(768), -- Gemini text-embedding-004
   role text default 'member' check (role in ('admin', 'member')),
+  timezone text default 'UTC',
   created_at timestamptz default now(),
   updated_at timestamptz,
   primary key (id)

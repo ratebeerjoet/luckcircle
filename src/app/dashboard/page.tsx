@@ -25,8 +25,15 @@ export default async function DashboardPage() {
             <header className="flex justify-between items-center mb-12 max-w-5xl mx-auto">
                 <h1 className="text-2xl font-bold text-white tracking-tight">The Luck Circle</h1>
                 <div className="flex gap-4">
-                    {/* Profile Avatar / Menu Placeholder */}
-                    <div className="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 from-neutral-500" />
+                    <Link href="/profile" className="block w-10 h-10 rounded-full bg-slate-800 border border-slate-700 overflow-hidden hover:ring-2 hover:ring-blue-500 transition-all">
+                        {profile?.avatar_url ? (
+                            <img src={profile.avatar_url} alt="Profile" className="w-full h-full object-cover" />
+                        ) : (
+                            <div className="w-full h-full flex items-center justify-center text-slate-500 font-bold bg-slate-900">
+                                {profile?.full_name ? profile.full_name[0].toUpperCase() : "U"}
+                            </div>
+                        )}
+                    </Link>
                 </div>
             </header>
 
