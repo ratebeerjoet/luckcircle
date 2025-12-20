@@ -32,6 +32,7 @@ export async function submitOnboarding(data: OnboardingData) {
         linkedin_url: data.linkedinUrl,
         struggle: data.struggle,
         helping_others: data.helpingOthers,
+        timezone: data.timezone || 'UTC', // Default to UTC if missing
         embedding: embedding,
         updated_at: new Date().toISOString(),
     });

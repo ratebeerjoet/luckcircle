@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
 import { submitOnboarding } from "@/app/actions/onboarding";
 import { OnboardingData, onboardingSchema } from "@/lib/validations/onboarding";
 
@@ -9,6 +9,12 @@ export default function OnboardingForm() {
     const [formData, setFormData] = useState<Partial<OnboardingData>>({});
     const [isPending, startTransition] = useTransition();
     const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        // Auto-detect browser timezone
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        setFormData(prev => ({ ...prev, timezone: tz }));
+    }, []);
 
     const handleNext = () => {
         // Basic Client Validation for current step could go here
